@@ -22,12 +22,6 @@ namespace JustAuthentication.Web.Controllers
         [Route("signup")]
         public void SignUp(SignUpVM sivm)
         {
-            if(sivm.User.Name == null || sivm.User.Email == null || sivm.User.Password == null)
-            {
-                //either this also doesn't work or it's still my button not clicking issue
-                return;
-            }
-
             UserRepository repository = new UserRepository(_connectionString);
             repository.AddUser(sivm.User, sivm.User.Password);
         }
