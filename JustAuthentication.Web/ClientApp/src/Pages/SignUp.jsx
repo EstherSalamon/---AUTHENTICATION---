@@ -14,7 +14,7 @@ const SignUp = () => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     const onTextChange = e => {
-        const copy = {...formData};
+        const copy = {...formData};  
         copy[e.target.name] = e.target.value;
         setFormData(copy);
 
