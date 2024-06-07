@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthentication } from '../AuthContext';
 
 const Layout = ({ children }) => {
+
+    const { user } = useAuthentication();
+
     return (
         <div>
             <header>
@@ -16,9 +20,10 @@ const Layout = ({ children }) => {
                         <div className="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                             <ul className="navbar-nav flex-grow-1">
                                 <li className="nav-item"><Link to="/" className='nav-link text-light'>Home</Link></li>
-                                <li className="nav-item"><Link to="/signup" className='nav-link text-light'>Sign up</Link></li>
-                                <li className="nav-item"><Link to="/login" className='nav-link text-light'>Log in</Link></li>
-                                <li className="nav-item"><Link to="/logout" className='nav-link text-light'>Log out</Link></li>
+                                {!user && <li className="nav-item"><Link to="/signup" className='nav-link text-light'>Sign up</Link></li>}
+                                {!user && <li className="nav-item"><Link to="/login" className='nav-link text-light'>Log in</Link></li>}
+                                {!!user && <li className="nav-item"><Link to="/logout" className='nav-link text-light'>Log out</Link></li>}
+                                {!!user && <li className="nav-item"><Link to="/privatepage" className='nav-link text-light'>Private page</Link></li>}
                             </ul>
                         </div>
                     </div>

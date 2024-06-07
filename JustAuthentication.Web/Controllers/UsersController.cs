@@ -1,6 +1,7 @@
 ﻿using JustAuthentication.Data;
 using JustAuthentication.Web.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -80,6 +81,16 @@ namespace JustAuthentication.Web.Controllers
         public void LogOut()
         {
             HttpContext.SignOutAsync().Wait();
+        }
+
+        [HttpGet]
+        [Route("privatedata")]
+        [Authorize]
+        public string GetPrivateData()
+        {
+            UserRepository repository = new UserRepository(_connectionString);
+            User currentUser = repository.GetByEmail(User.Identity.Name);
+            return $"If you are seeing this, you better be logged in, {currentUser.Name}!";
         }
     }
 }
